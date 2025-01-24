@@ -22,7 +22,10 @@ public class CityController {
         List<City> cities = cityService.getAllCities();
         return new ResponseEntity<>(cities, HttpStatus.OK);
     }
-
+      @GetMapping("/")
+    public String home() {
+        return "Welcome to City Type Service!";
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Optional<City>> getCityById(@PathVariable String id) {
         Optional<City> city = cityService.getCityById(id);
