@@ -3,10 +3,12 @@ package com.travifai.preferences_service.controller;
 import com.travifai.preferences_service.model.Preference;
 import com.travifai.preferences_service.service.PreferredService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name="Preferences Management")
 @RestController
 @RequestMapping("/api/preferences")
 public class PreferencesController {

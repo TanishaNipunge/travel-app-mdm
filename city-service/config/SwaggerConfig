@@ -1,0 +1,28 @@
+package com.travifai.city_service.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select() // To choose which controllers to include
+                .apis(RequestHandlerSelectors.basePackage("com.travifai.city_service.controller")) // Set the base package to your controller package
+                .paths(PathSelectors.any()) // Include all paths (endpoints)
+                .build()
+                .apiInfo(new ApiInfoBuilder() // Set API info like title, description, version, etc.
+                        .title("City Service API")
+                        .description("API Documentation for City Service")
+                        .version("1.0.0")
+                        .build());
+    }
+}

@@ -6,8 +6,10 @@ import java.util.Optional;
 import com.travifai.propertytype_service.model.PropertyType;
 import com.travifai.propertytype_service.service.PropertyTypeService;
 
-import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.web.bind.annotation.*;
+@Tag(name="Property Type Management")
 @RestController
 @RequestMapping("/property-types")
 public class PropertyTypeController {
