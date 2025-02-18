@@ -2,13 +2,13 @@ package com.travifai.preferences_service.controller;
 
 import com.travifai.preferences_service.model.Preference;
 import com.travifai.preferences_service.service.PreferredService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name="Preferences Management")
+import java.util.Map;
+
+@Tag(name = "Preferences Management")
 @RestController
 @RequestMapping("/api/preferences")
 public class PreferencesController {
@@ -17,31 +17,37 @@ public class PreferencesController {
     public PreferencesController(PreferredService preferredService) {
         this.preferredService = preferredService;
     }
+
     @GetMapping("/")
     public String home() {
-        return "Welcome to Prefrence Type Service!";
+        return "Welcome to Preference Type Service!";
     }
-    // ✅ Fetch all preferences
+
+    // Fetch all preferences
     @GetMapping
     public List<Preference> getAllPreferences() {
         return preferredService.getAllPreferences();
     }
 
-    // ✅ Fetch preferences by location
-    @GetMapping("/location/{location}")
-    public List<Preference> getPreferencesByLocation(@PathVariable String location) {
-        return preferredService.getPreferencesByLocation(location);
+    // Fetch a preference by ID
+    @GetMapping("/{id}")
+    public Preference getPreferenceById(@PathVariable String id) {
+        return preferredService.getPreferenceById(id);
     }
 
-    // ✅ Add a new preference with all attributes
+    // Add a new preference (Mood Preferences)
     @PostMapping
     public Preference addPreference(@RequestBody Preference preference) {
-        // Auto-calculate number of nights
-        preference.calculateNumberOfNights();
         return preferredService.addPreference(preference);
     }
 
-    // ✅ Delete a preference by ID
+    // Update preferences dynamically (Add/Delete moods)
+    @PatchMapping("/{id}")
+    public Preference updatePreference(@PathVariable String id, @RequestBody Map<String, Boolean> updates) {
+        return preferredService.updatePreference(id, updates);
+    }
+
+    // Delete a preference by ID
     @DeleteMapping("/{id}")
     public void deletePreference(@PathVariable String id) {
         preferredService.deletePreference(id);
